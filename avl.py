@@ -121,31 +121,32 @@ class AVLTree:
 
         return pos
 
+    # Function to generate the tree visualization using NetworkX
     def draw_tree(self, node):
         pos = self.visualize_tree(node)
         plt.figure(figsize=(12, 8))
         nx_graph = nx.Graph()
         
+        # Add nodes to the graph
         for key, value in pos.items():
             nx_graph.add_node(key, pos=value)
-        
-        for key, value in pos.items():
-            if node := self.find_node(self.root, key):
-                if node.left:
-                    nx_graph.add_edge(key, node.left.key)
-                if node.right:
-                    nx_graph.add_edge(key, node.right.key)
 
+        # Add edges for the graph based on tree structure
+        def add_edges(n):
+            if n:
+                if n.left:
+                    nx_graph.add_edge(n.key, n.left.key)
+                    add_edges(n.left)
+                if n.right:
+                    nx_graph.add_edge(n.key, n.right.key)
+                    add_edges(n.right)
+
+        add_edges(node)
+
+        # Draw the tree with labels
         nx.draw(nx_graph, pos, with_labels=True, arrows=True, node_size=2000, node_color="lightblue", font_size=15, font_weight="bold")
         plt.title("AVL Tree Visualization")
         plt.show()
-
-    def find_node(self, node, key):
-        if node is None or node.key == key:
-            return node
-        if key < node.key:
-            return self.find_node(node.left, key)
-        return self.find_node(node.right, key)
 
 # Main function to take user input and build AVL tree
 if __name__ == "__main__":
@@ -167,5 +168,4 @@ if __name__ == "__main__":
 
     # Visualize the AVL tree
     print("Visualizing the AVL tree:")
-    tree.root = root  # Save the root for visualization
     tree.draw_tree(root)
