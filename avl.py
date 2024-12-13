@@ -190,5 +190,3 @@ def main():
             break
         else:
             print("Invalid choice! Please select a valid option.")
-
-main()
