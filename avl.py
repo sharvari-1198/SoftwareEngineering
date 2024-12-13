@@ -148,24 +148,47 @@ class AVLTree:
         plt.title("AVL Tree Visualization")
         plt.show()
 
+
 # Main function to take user input and build AVL tree
-if __name__ == "__main__":
-    tree = AVLTree()
+def main():
+    avl_tree = AVLTree()
     root = None
 
-    # Take input from the user as a space-separated list of integers
-    user_input = input("Enter the elements to insert into the AVL tree (space-separated): ")
-    elements = list(map(int, user_input.split()))
+    while True:
+        print("\nMenu:")
+        print("1. Insert a node")
+        print("2. Delete a node")
+        print("3. Search for a node")
+        print("4. Display In-order traversal")
+        print("5. Exit")
 
-    # Insert elements into the AVL tree
-    for elem in elements:
-        root = tree.insert(root, elem)
+        choice = int(input("Enter your choice (1-5): "))
 
-    # Print in-order traversal of the AVL tree
-    print("In-order traversal of the AVL tree:")
-    tree.in_order_traversal(root)
-    print()
+        if choice == 1:
+            key = int(input("Enter the value to insert: "))
+            root = avl_tree.insert(root, key)
+            print(f"Inserted {key} into the AVL Tree.")
+        elif choice == 2:
+            key = int(input("Enter the value to delete: "))
+            root, deleted = avl_tree.delete(root, key)  # Capture both root and deletion status
 
-    # Visualize the AVL tree
-    print("Visualizing the AVL tree:")
-    tree.draw_tree(root)
+            if deleted != -1:
+                print(f"Deleted {key} from the AVL Tree.")
+        elif choice == 3:
+            key = int(input("Enter the value to search: "))
+            result = avl_tree.search(root, key)
+            if result:
+                print(f"Node {key} found in the AVL Tree.")
+            else:
+                print(f"Node {key} not found in the AVL Tree.")
+        elif choice == 4:
+            print("In-order Traversal of AVL Tree:")
+            avl_tree.inorder_traversal(root)
+            print()
+        elif choice == 5:
+            print("Exiting program.")
+            break
+        else:
+            print("Invalid choice! Please select a valid option.")
+
+main()
