@@ -150,8 +150,8 @@ class AVLTree:
 
 
 # Main function to take user input and build AVL tree
-if __name__ == "__main__":
-    tree = AVLTree()
+def main():
+    avl_tree = AVLTree()
     root = None
 
     while True:
@@ -191,6 +191,4 @@ if __name__ == "__main__":
         else:
             print("Invalid choice! Please select a valid option.")
 
-    # Visualize the AVL tree
-    print("Visualizing the AVL tree:")
-    tree.draw_tree(root)
+main()
